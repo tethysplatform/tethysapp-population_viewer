@@ -7,7 +7,7 @@ from pathlib import Path
 import requests
 
 
-@controller(name='home', app_workspace=True)
+@controller(name='home', app_resources=True)
 class PopulationMap(MapLayout):
     app = App
     base_template = 'population_app/base.html'
@@ -18,10 +18,10 @@ class PopulationMap(MapLayout):
     basemaps = ['OpenStreetMap', 'ESRI']
     default_map_extent = [-73.81, -57.49, 91.30, 73.71]
 
-    def compose_layers(self, request, map_view, app_workspace, *args, **kwargs):
+    def compose_layers(self, request, map_view, app_resources, *args, **kwargs):
         """ Override the compose_layers method to add GeoJSON layers to the map. """
         # Load GeoJSON data
-        geojson_file = Path(app_workspace.path) / 'population_app' / 'data' / 'country_borders.geojson'
+        geojson_file = Path(app_resources.path) / 'country_borders.geojson'
 
         with open(geojson_file) as f:
             geojson_data = json.load(f)
